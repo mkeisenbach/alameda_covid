@@ -31,4 +31,4 @@ python covid.py <yesterday_file> <today_file>
 
 ## Output
 - The generated output file `output.txt` is a tab separated file which contains the merged rows from yesterday's file with the new rows from today. 
-- Longitude and Latitude are looked up using a concatination of address, city, state, and zip fields.
+- Longitude and Latitude are looked up using a concatenation of address, city, state, and zip fields.
