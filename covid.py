@@ -31,8 +31,8 @@ def geo_code(df):
 
 def convert_to_gdf(df):
     geom = df.apply(lambda a : Point([a['Longitude'], a['Latitude']]), axis=1)
-    gdf = gpd.GeoDataFrame(df_new, geometry=geom)
-    gdf.crs = {'init' :'epsg:4326'}
+    gdf = gpd.GeoDataFrame(df, geometry=geom)
+    gdf.crs = 'epsg:4326'
     return gdf
 
 if __name__ == "__main__":
