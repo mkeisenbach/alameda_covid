@@ -30,5 +30,8 @@ python covid.py <yesterday_file> <today_file>
 ```
 
 ## Output
-- The generated output file `output.txt` is a tab separated file which contains the merged rows from yesterday's file with the new rows from today. 
+- The generated output file `output.txt` is a tab-separated file which contains the merged rows from yesterday's file with the new rows from today. 
 - Longitude and Latitude are looked up using a concatenation of address, city, state, and zip fields.
+- A spatial join is done between the new records and the shapefile with city boundary information.
+- City/place field is changed to "Santa Rita jail" where the address matches the jail's
+- `tobechecked.txt` is a tab-separated file containing records where the geocoding score was <100
