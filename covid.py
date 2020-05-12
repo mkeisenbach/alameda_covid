@@ -76,7 +76,6 @@ if __name__ == "__main__":
         sys.exit()
      
     done = sys.argv[1]
-    done = 'output.txt'
     today = sys.argv[2]
     
     df_done, df_today, gdf_boundaries = load_files(done, today, shapefile, output, tobechecked)
