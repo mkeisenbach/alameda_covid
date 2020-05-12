@@ -24,9 +24,9 @@ Additional libraries:
 4. Run `bootstrap.bat` (Acknowledge all prompts)
 
 ## How to run
-Call the script with yesterday's datafile and today's datafile
+Call the script with existing datafile and today's datafile
 ```sh
-python covid.py <yesterday_file> <today_file>
+python covid.py <done_file> <today_file>
 ```
 
 ## Output
@@ -35,3 +35,4 @@ python covid.py <yesterday_file> <today_file>
 - A spatial join is done between the new records and the shapefile with city boundary information.
 - City/place field is changed to "Santa Rita jail" where the address matches the jail's
 - `tobechecked.txt` is a tab-separated file containing records where the geocoding score was <100
+- When an addressed has changed, the new address is processed and the original row is replaced.
