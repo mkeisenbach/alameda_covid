@@ -1,5 +1,5 @@
 IncidentID	LastName	FirstName	MiddleName	NameSuffix	SSN	DOB	Age	Ethnicity	Race	Address	AptNo	City	State	Zip	Sex	Guardian	LHJ	PStatus
-9999999	Beyers	Matt	NA	NA	NA	7/13/1964	55	Not Hispanic or Latino	White	1000 Broadway	NA	Oakland	CA	94607	M	NA	Alameda	Under Investigation
+9999999	Beyers	Matt	NA	NA	NA	7/13/1964	55	Not Hispanic or Latino	White	779 Kingston Ave	10	Oakland	CA	94611	M	NA	Alameda	Under Investigation
 1111111	Eisenbach	Mei	NA	NA	NA	6/1/1971	49	Chinese	Asian	32223 Cabello St		Union City	CA	94587	F	NA		Confirmed
 2222222	Mouse	Mickey	NA	NA	NA	11/28/1928	90	Cartoon	Mouse	19400 Santa Maria Ave		Castro Valley	CA	94546	M			Confirmed
 3333333	Duck	Donald								34700 Frement Blvd		Fremont	CA	94555				
