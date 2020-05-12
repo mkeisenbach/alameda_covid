@@ -51,7 +51,7 @@ def geocode(df):
     
     # Separate rows with score <100
     check = df_new.Score < 100
-    df_check = df_new[check]
+    df_check = df_new[check].drop(columns=['location'])
     df_new.drop(df_check.index, inplace=True)
     
     df_new.rename(columns={'Address':'Done_Address', 'AptNo':'Done_AptNo', 
@@ -118,8 +118,8 @@ if __name__ == "__main__":
         # Replace changed rows with done
         df_out = pd.concat([df_out.drop(index=gdf_changed.index), gdf_changed[cols]])
                         
-    # Change PL2018 to "Santa Rita Jail" if address matches
-    df_out.loc[df_out.Done_Address == santa_rita_jail, 'PL2018'] = 'Santa Rita Jail'
+    # Change Place to "Santa Rita Jail" if address matches
+    df_out.loc[df_out.Done_Address == santa_rita_jail, 'Place'] = 'Santa Rita Jail'
 
     df_out.to_csv(output, sep='\t')
     print('Merged data written to {}'.format(output))    
