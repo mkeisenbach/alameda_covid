@@ -1,2 +1,0 @@
-IncidentID	LastName	FirstName	MiddleName	NameSuffix	SSN	DOB	Age	Ethnicity	Race	Address	AptNo	City	State	Zip	Sex	Guardian	LHJ	PStatus	location	addr_found	Longitude	Latitude	score
-3333333	Duck	Donald								34700 Frement Blvd		Fremont	CA	94555					34700 Fremont Blvd, Fremont, California, 94555	34700 Fremont Blvd, Fremont, California, 94555	-122.03496418691222	37.57221062617557	96.97
