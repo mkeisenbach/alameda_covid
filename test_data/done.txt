@@ -1,7 +1,4 @@
-IncidentID	Done_Address	Done_AptNo	Done_City	Done_State	Done_Zip	MyZip	MyX	MyY	Note	Match_addr	Place	Score
-3333333	1221 Oak St		Oakland	CA	94612	94568	-121.8841513	37.71592647	Was on SRJ list	5325 Broder Blvd, Dublin, California, 94568	Santa Rita Jail	
-2222222	19400 Santa Maria Ave		Castro Valley	CA	94546	94546	-122.07853368766868	37.70463524565023		19400 Santa Maria Ave, Castro Valley, California, 94546	Castro Valley	100.0
-4444444	5325 Broder Blvd		Dublin	CA	94568	94568	-121.88415133236194	37.71592647157925		5325 Broder Blvd, Dublin, California, 94568	Dublin	100.0
-5555555	5325 Broder Blvd		Dublin	CA	94568	94568	-121.88415133236194	37.71592647157925		5325 Broder Blvd, Dublin, California, 94568	Dublin	100.0
-9999999	779 Kingston Ave	10.0	Oakland	CA	94611	94611	-122.24886930073852	37.82415634445138		779 Kingston Ave, Oakland, California, 94611	Oakland	100.0
-1111111	32223 Cabello St		Union City	CA	94587	94587	-122.07346875548494	37.587460332882586		32223 Cabello St, Union City, California, 94587	Union City	100.0
+IncidentID	Done_Address	Done_AptNo	Done_City	Done_State	Done_Zip	MyZip	MyX	MyY	Note	Match_addr	Place
+9999999	1000 Broadway	NA	Oakland	CA	94607	94607	-122.205247	37.771528		5125 Bancroft Ave, Oakland, California, 94601	Oakland
+1111111	32223 Cabello St	NA	Union City	CA	94587	94587	-122.0734688	37.58746033		32223 Cabello St, Union City, California, 94587	Union City
+3333333	1221 Oak St	NA	Oakland	CA	94612	94568	-121.8841513	37.71592647	Was on SRJ list	5325 Broder Blvd, Dublin, California, 94568	Santa Rita Jail
