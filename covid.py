@@ -43,12 +43,17 @@ def geocode(df):
         print('Error geocoding addresses. Aborting script')
         sys.exit()
     
+    # Handle rows where geocoding failed
+    failed = df_new['location'].isna()
+    df_failed = df_new[failed]
+    df_new.drop(df_failed.index, inplace=True)    
+    
     df_new['MyZip'] = df_new['location'].map(lambda a: a.address.split(', ')[-1])
     df_new['MyX'] = df_new['location'].map(lambda a: a.longitude)
     df_new['MyY'] = df_new['location'].map(lambda a: a.latitude)
     df_new['Match_addr'] = df_new['location'].map(lambda a: a.address)
     df_new['Score'] = df_new['location'].map(lambda a: a.raw['score'])
-    
+
     # Separate rows with score <100
     check = df_new.Score < 100
     df_check = df_new[check].drop(columns=['location'])
@@ -56,7 +61,7 @@ def geocode(df):
     
     df_new.rename(columns={'Address':'Done_Address', 'AptNo':'Done_AptNo', 
                      'City':'Done_City', 'State':'Done_State', 'Zip':'Done_Zip'}, inplace=True)
-    return df_new, df_check
+    return df_new, df_check, df_failed
 
 def convert_to_gdf(df):
     geom = df.apply(lambda a : Point([a['MyX'], a['MyY']]), axis=1)
@@ -100,23 +105,28 @@ if __name__ == "__main__":
     # Handle new records
     if num_new > 0:    
         print('Geocoding new records...')    
-        df_new, df_check = geocode(df_today[new_rows])
+        df_new, df_check, df_failed = geocode(df_today[new_rows])
 
         gdf_new = spatial_join(df_new)
 
         # Append new rows with done's
         df_out = pd.concat([df_out, gdf_new[cols]])
 
+        if len(df_failed) > 0:
+            print('Unable to geocode {} new record(s)'.format(len(df_failed)))
     # Handle changed records        
     if num_changed > 0:
         print('Geocoding changed records...')    
-        df_changed, df_check_changed = geocode(df_today.loc[address_changed.index])
-        df_check = pd.concat([df_check, df_check_changed])
+        df_changed, df_changed_check, df_changed_failed = geocode(df_today.loc[address_changed.index])
+        df_check = pd.concat([df_check, df_changed_check])
     
         gdf_changed = spatial_join(df_changed)
     
         # Replace changed rows with done
         df_out = pd.concat([df_out.drop(index=gdf_changed.index), gdf_changed[cols]])
+
+        if len(df_failed) > 0:
+            print('Unable to geocode {} new record(s)'.format(len(df_failed)))
                         
     # Change Place to "Santa Rita Jail" if address matches
     df_out.loc[df_out.Done_Address == santa_rita_jail, 'Place'] = 'Santa Rita Jail'
