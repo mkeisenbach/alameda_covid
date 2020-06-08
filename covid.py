@@ -16,6 +16,7 @@ santa_rita_jail = '5325 Broder Blvd'
 shapefile = 'geocoding/PL18_Esri_Hayward_WGS84.shp'
 output = 'output.txt'
 tobechecked = 'tobechecked.txt'
+authfile = 'authenticate.txt'
 
 def load_files(done, today, shapefile, output, tobechecked):
     df_done = pd.read_csv(done, sep='\t')
@@ -32,11 +33,15 @@ def load_files(done, today, shapefile, output, tobechecked):
 
     return df_done, df_today, gdf_boundaries
     
-def geocode(df):
+def geocode(df, username=None, password=None):
     df_new = df.copy()
     lookup = df.Address+', '+df.City+', '+df.State+' '+df.Zip.map(str)
     try:
-        geolocator = ArcGIS()
+        if username is None or password is None:
+            geolocator = ArcGIS()
+        else:
+            geolocator = ArcGIS(username=username, password=password, referer='http://www.acgov.org/')
+
         geocode = RateLimiter(geolocator.geocode, min_delay_seconds=.1)
         df_new['location'] = lookup.apply(geocode)
     except:
@@ -85,6 +90,14 @@ if __name__ == "__main__":
     
     df_done, df_today, gdf_boundaries = load_files(done, today, shapefile, output, tobechecked)
 
+    try:
+        with open(authfile) as auth:
+            username = auth.readline().rstrip()
+            password = auth.readline().rstrip()
+    except FileNotFoundError:
+        print('Error: '+ authfile + ' not found')
+        sys.exit()
+
     # Generate masks for the old and new rows
     old_rows = df_today.index.isin(df_done.index)
     new_rows = ~old_rows
@@ -105,7 +118,7 @@ if __name__ == "__main__":
     # Handle new records
     if num_new > 0:    
         print('Geocoding new records...')    
-        df_new, df_check, df_failed = geocode(df_today[new_rows])
+        df_new, df_check, df_failed = geocode(df_today[new_rows], username, password)
 
         gdf_new = spatial_join(df_new)
 
@@ -114,10 +127,11 @@ if __name__ == "__main__":
 
         if len(df_failed) > 0:
             print('Unable to geocode {} new record(s)'.format(len(df_failed)))
+    
     # Handle changed records        
     if num_changed > 0:
         print('Geocoding changed records...')    
-        df_changed, df_changed_check, df_changed_failed = geocode(df_today.loc[address_changed.index])
+        df_changed, df_changed_check, df_changed_failed = geocode(df_today.loc[address_changed.index], username, password)
         df_check = pd.concat([df_check, df_changed_check])
     
         gdf_changed = spatial_join(df_changed)
